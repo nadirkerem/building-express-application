@@ -7,6 +7,12 @@ app.set('views', './views');
 
 app.use(express.urlencoded({ extended: true }));
 
+app.use((req, res, next) => {
+  const logEntry = `${new Date().toISOString()} - ${req.method} ${req.url}`;
+  console.log(logEntry);
+  next();
+});
+
 app.get('/', (req, res) => {
   res.render('home');
 });
