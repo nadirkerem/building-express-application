@@ -6,6 +6,8 @@ const port = 3000;
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
+app.use(express.static('public'));
+
 app.use(express.urlencoded({ extended: true }));
 
 app.use((req, res, next) => {
@@ -32,6 +34,11 @@ app.get('/user/:name', (req, res) => {
 app.post('/submit', (req, res) => {
   console.log(req.body);
   res.send('Form submitted successfully!');
+});
+
+app.get('/download', (req, res) => {
+  const file = `${__dirname}/public/john-doe.jpg`;
+  res.download(file);
 });
 
 app.listen(port, () => {
